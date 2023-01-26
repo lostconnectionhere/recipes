@@ -32,7 +32,7 @@ mycursor.execute("""
     CREATE TABLE IF NOT EXISTS recipe_ingredients (
         recipe_id INT, 
         ingredient_id INT,
-        measurement_unit ENUM('g', 'kg', 'tsp'. 'tbsp' ),
+        measurement_unit ENUM('g', 'kg', 'tsp'. 'tbsp', 'ml', 'l', 'cup', 'piece(s)'),
         amount INT
         FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id), 
         FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id)
