@@ -24,7 +24,7 @@ mycursor.execute("""
 mycursor.execute("""
     CREATE TABLE IF NOT EXISTS ingredients (
         ingredient_id INT AUTO_INCREMENT PRIMARY KEY, 
-        ingredient_name VARCHAR(255)
+        ingredient_name VARCHAR(255) NOT NULL
     )""")
 
 #create table recipe_ingredients

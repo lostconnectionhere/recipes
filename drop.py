@@ -9,6 +9,4 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor() 
 
-sql = "DROP TABLE IF EXISTS ingredients"
-
-mycursor.execute(sql)
+mycursor.execute("DROP TABLE IF EXISTS recipes")

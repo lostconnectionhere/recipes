@@ -29,7 +29,7 @@ for table in tablesWithoutAI:
 # map(lambda t: cleanTable(t, False), ["ingredients", "recipes"])
 # map(lambda t: cleanTable(t, True), ["recipe_ingredients"])
 
-print("CLEANED TABLE ingredients")
+print("Cleaned up all tables")
 
 # STEP 2. Insert values in tables
 # STEP 2.1 Insert recipes (seed)
@@ -49,7 +49,8 @@ val_ingredients = [
     ["egg"],
     ["sunflower oil"],
     ["water"],
-    ["all purpose flower"]
+    ["all purpose flower"],
+    ["sugar"]
 ]
 
 mycursor.executemany(sql_ingredients, val_ingredients)
@@ -58,8 +59,27 @@ mydb.commit()
 
 print(mycursor.rowcount, "record(s) inserted for table ingredients: ")
 
+# STEP 2.3 Insert recipe_ingredients (seed)
+# sql_recipe_ingredient = "INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measurement_unit, amount) VALUES (%s, %s, %s, %s)"
+# val_recipe_ingredient = [
+#      (11, 66, 'g', 16),
+#      (11, 71,'kg', 1),
+#      (11, 67, 'tsp', 1),
+#      (11, 72, 'tsp', 1),
+#      (11, 68, 'piece(s)', 1),
+#      (11, 69, 'tbsp', 3),
+#      (11, 70, 'ml', 250)
+
+# ]
+
+# mycursor.executemany(sql_recipe_ingredient, val_recipe_ingredient)
+
+# mydb.commit()
+
+# print(mycursor.rowcount, "record(s) inserted for table recipe_ingredients: ")
+
 # STEP 3. Show tables
-# Step 3. Show table recipes
+# Step 3.1 Show table recipes
 show_recipes = "SELECT * FROM recipes"
 mycursor.execute(show_recipes)
 
@@ -68,7 +88,7 @@ result_recipes = mycursor.fetchall();
 for recipe in result_recipes: 
     print(recipe)
 
-# Step 3. Show table ingredients
+# Step 3.2 Show table ingredients
 show_ingredients = "SELECT * FROM ingredients"
 mycursor.execute(show_ingredients)
 
@@ -77,3 +97,12 @@ result_ingredients = mycursor.fetchall();
 
 for ingredient in result_ingredients: 
     print(ingredient)
+
+# Step 3.3 Show table ingredients
+# show_recipe_ingredients = "SELECT * FROM recipe_ingredients"
+# mycursor.execute(show_recipe_ingredients)
+
+# result_recipe_ingredients = mycursor.fetchall();
+
+# for recipe_ingredient in result_recipe_ingredients: 
+#     print(recipe_ingredient)
