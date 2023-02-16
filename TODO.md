@@ -11,7 +11,7 @@ I want this menu:
 What would you like to do:
 [1]: list recipes
 [2]: list ingredients
-[3]: add ingredient
+[3]: add ingredient #next: check whether ingredient existst already 
 ```
 
 After typing `1` this should say: 
