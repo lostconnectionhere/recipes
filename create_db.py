@@ -33,11 +33,10 @@ mycursor.execute("""
         recipe_id INT, 
         ingredient_id INT,
         measurement_unit ENUM('g', 'kg', 'tsp', 'tbsp', 'ml', 'l', 'cup', 'piece(s)') NOT NULL,
-        amount INT NOT NULL,
-        FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id), 
-        FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id)
+        amount INT NOT NULL)""")
 
-    )""")
+        # FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id), 
+        # FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id)
 
 mycursor.execute("SHOW TABLES")
 
