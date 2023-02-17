@@ -9,7 +9,8 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-def showMainMenu(): 
+
+def show_main_menu(): 
     # show main menu
     print("\n\n*********************")
     print("[Main Menu]")
@@ -23,38 +24,15 @@ def showMainMenu():
     if userChoice == 0:
         print("Goodbye")
     elif userChoice == 1:
-        showRecipeMenu()
+        show_recipe_menu()
     elif userChoice == 2:
-        showIngredientMenu()
+        show_ingredient_menu()
     else:
         print("Unrecognized option: " + userChoice + " please make another choice")
-        showMainMenu()
+        show_main_menu()
 
-def showRecipeMenu(): 
-    print("\n\*********************")
-    print("[RECIPE MENU]")
-    print("[0] Back to Main Menu")
-    print("[1] List recipes")
-    print("[2] Get recipes")
-    print("*********************")
 
-    userChoice = int(input("Make a choice: "))
-
-    if userChoice == 0:
-        showMainMenu()
-    elif userChoice == 1:
-        listRecipes()
-        showRecipeMenu()
-    elif userChoice == 2:
-        recipeId = int(input("Recipe ID: "))
-        getRecipe(recipeId)
-    else:
-        print("Unrecognized option: " + userChoice + " please make another choice")
-        showRecipeMenu()
-
-    showMainMenu()
-
-def listRecipes(): 
+def list_recipes(): 
     print("\n<<< Your results are")
     mycursor.execute("SELECT recipe_id, recipe_name_EN FROM recipes")
     result_rec = mycursor.fetchall()
@@ -67,15 +45,37 @@ def listRecipes():
 def getRecipe(recipeId):
     print("Fetching recipe " + str(recipeId))
 
-def showIngredientMenu():
-    print("\n[INGREDIENT MENU]")
+def show_ingredient_menu():
+    print("\n\*********************")
+    print("[INGREDIENT MENU]")
+    print("[0] Back to Main Menu")
+    print("[1] List ingredients")
+    print("[2] Get ingredients")
+    print("*********************")
+
+    userChoice = int(input("Make a choice: "))
+
+    if userChoice == 0:
+        show_main_menu()
+    elif userChoice == 1:
+        list_ingredients()
+        show_ingredient_menu()
+    elif userChoice == 2:
+        ingredient_id = int(input("Recipe ID: "))
+        getRecipe(ingredient_id)
+    else:
+        print("Unrecognized option: " + userChoice + " please make another choice")
+        show_ingredient_menu()
+
+    show_main_menu()
+
+def list_ingredients(): 
     print("\n<<< Your results are")
     mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
     result_ing = mycursor.fetchall()
 
-    for ingredient in result_ing: 
-        print("[%d] %s" % ingredient)
+
     
     print (">>> DONE")
 
-showMainMenu()
+show_main_menu()

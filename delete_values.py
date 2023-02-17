@@ -1,4 +1,4 @@
-from assignment1702 import showMainMenu
+from assignment1702 import show_main_mneu
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -32,5 +32,5 @@ def delete_item():
             print("Ok, nothing will be deleted")
     else:
         print("Unrecognized option: " + user_correct_input + " please make another choice")
-        showMainMenu()
+        show_main_mneu()
 
