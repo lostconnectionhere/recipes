@@ -1,19 +1,30 @@
 # Assignment 2
-After typing `1` this should say: 
+
+## What happend here?
 
 ```sh
-Which recipe would you like to see:
-[1]: <auto generated>
-[2]: <auto generated>
-[3]: <auto generated>
+Make a choice: 3
+Which recipe do you want to change? 6
+Pick a column: [recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author]: recipe_name_EN='FCK', recipe_name_KU='potatoes', total_time=666, directions="meehhh" --
+Sure, to what do you want to update it to? 
+
 ```
 
-After typeing `2` it should show the full ingredient list of that recipe
+
+
+What happens if I as a user do this: 
+
 ```sh
-Recipe `XX` contains the following ingredients: 
-<auto generated stuff>
-<auto generated stuff>
-<auto generated stuff>
-<auto generated stuff>
-<auto generated stuff>
+[3]: Update recipe 
+> 3 
+
+What field:
+> name
+
+What value:
+> h"; DROP TABLE recipes; --
 ```
+
+## Next up: prepared statements.
+
+https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/

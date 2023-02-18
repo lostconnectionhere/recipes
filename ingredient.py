@@ -1,5 +1,4 @@
 import mysql.connector
-from assignment1702 import show_main_menu 
 
 mydb = mysql.connector.connect(
     host = "localhost",
@@ -22,10 +21,9 @@ def show_ingredient_menu():
     user_choice = int(input("Make a choice: "))
 
     if user_choice == 0:
-        show_main_menu()
+        return
     elif user_choice == 1:
         list_ingredients()
-        show_ingredient_menu()
     elif user_choice == 2:
         ingredient_id = int(input("Recipe ID: "))
         get_ingredient(ingredient_id)
@@ -36,8 +34,7 @@ def show_ingredient_menu():
     else:
         print("Unrecognized option: " + user_choice + " please make another choice")
         show_ingredient_menu()
-
-    show_main_menu()
+    show_ingredient_menu()
 
 def list_ingredients(): 
     print("\n<<< Your results are")

@@ -1,6 +1,6 @@
 import mysql.connector
-from recipe import show_recipe_menu, list_recipes, get_recipe
-from ingredient import show_ingredient_menu, list_ingredients, get_ingredient, update_ingredient, delete_ingredient
+from recipe import show_recipe_menu # list_recipes, get_recipe
+from ingredient import show_ingredient_menu # list_ingredients, get_ingredient, update_ingredient, delete_ingredient
 
 mydb = mysql.connector.connect(
     host = "localhost",
@@ -31,6 +31,9 @@ def show_main_menu():
         show_ingredient_menu()
     else:
         print("Unrecognized option: " + user_choice + " please make another choice")
-        show_main_menu()
 
+    show_main_menu()
+
+
+# Start of script
 show_main_menu()
