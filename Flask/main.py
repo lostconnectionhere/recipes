@@ -34,6 +34,9 @@ def list_ingredients():
     print("Here you can see all the ingredients: ")
     mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
     result_ing = mycursor.fetchall()
+    return render_template("list_ingredients.html", value = result_ing)
+    # for ingredient in result_ing:
+    #     print(ingredient)
 
 
 # @app.route('/recipe/<recipe_name>') #test
