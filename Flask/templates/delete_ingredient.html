@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Add Profile</title>
+   </head>
+   <body>
+      <h3>Delete Ingredient</h3>
+      <form action="/delete_ingredient" method="POST">
+         <label>Ingredient Name</label>
+         <input type="text" name="del_ingredient_name" placeholder="ingredient name">
+         <a href="/delete/{{data.id}}" type="button">Delete</a>
+      </form>
+
+      <!---confirm that the ingredient has been deleted-->
+   </body>
+</html>   

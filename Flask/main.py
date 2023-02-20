@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 import mysql.connector
 
+import mysql.connector
+
 mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
@@ -31,12 +33,25 @@ def add_data():
 
 @app.route('/list_ingredients')
 def list_ingredients():
+    # Probeer de list_ingredients functie te gebruiken die je al had. 
+    # laat die result_ing die je nu hier hebt staan return'en. e.g.:
+    # result = list_ingredients()
+    # render_template(..., value = result); 
     print("Here you can see all the ingredients: ")
     mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
     result_ing = mycursor.fetchall()
-    return render_template("list_ingredients.html", value = result_ing)
     # for ingredient in result_ing:
     #     print(ingredient)
+    return render_template("list_ingredients.html", value = result_ing)
+
+@app.route('/delete_ingredient')
+def delete_ingredient():
+    del_ingredient = input("What ingredient do you want to delete? ")
+    sql_del_ing = "DELETE FROM ingredients WHERE ingredient_id = " + del_ingredient
+    mycursor.execute(sql_del_ing)
+    mydb.commit()
+        
+    delete_ingredient()
 
 
 # @app.route('/recipe/<recipe_name>') #test
