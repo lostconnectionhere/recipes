@@ -94,6 +94,17 @@ def add_recipes():
     mydb.commit()
     return redirect(url_for('list_recipes'))
 
+# 1.3 Delete Recipe
+@app.route('/delete_recipe')
+def delete_rec_screen():
+    return render_template('delete_recipe.html')
+
+@app.route('/delete_recipe/<int:recipe_id>')
+def delete_recipe(recipe_id):
+    mycursor.execute("DELETE FROM recipes WHERE recipe_id = %s" , (recipe_id,))
+    mydb.commit()
+    return redirect(url_for('list_recipes'))
+
 app.run(host='0.0.0.0',port=8001)
 
 
