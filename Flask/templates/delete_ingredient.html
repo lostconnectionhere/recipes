@@ -7,8 +7,8 @@
       <h3>Delete Ingredient</h3>
       <form action="/delete_ingredient" method="POST">
          <label>Ingredient Name</label>
-         <input type="text" name="ingredient_id" placeholder="ingredient id" value="{{ row['ingredient_id'] }}">
-         <a href="/delete/{{ingredient_id}}" type="button">Delete</a>
+         <input type="text" name="ingredient_id" placeholder="ingredient id">
+         <a href="/delete_ingredient/{{ingredient_id}}" type="button">Delete</a>
       </form>
 
       <!---confirm that the ingredient has been deleted-->

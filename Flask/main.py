@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, redirect, url_for
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -47,13 +47,22 @@ def list_ingredients():
     #     print(ingredient)
     return render_template("list_ingredients.html", value = result_ing)
 
+@app.route('/delete_ingredient')
+def delete_ing_screen():
+    return render_template('delete_ingredient.html')
+
 @app.route('/delete_ingredient/<int:ingredient_id>')
 def delete_ingredient(ingredient_id):
     mycursor.execute("DELETE FROM ingredients WHERE ingredient_id = %s" % (ingredient_id,))
     mydb.commit()
-    flash("Ingredient deleted successfully!")
-        
-    delete_ingredient()
+    return redirect(url_for('list_ingredients'))
+
+    
+@app.route('/bye')
+def bye_web():
+    # return render_template('bye.html')
+
+    return redirect(url_for('main_menu'))
 
 
 # @app.route('/recipe/<recipe_name>') #test
