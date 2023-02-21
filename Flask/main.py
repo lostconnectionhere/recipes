@@ -10,17 +10,14 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
+# creates application object
 app = Flask(__name__)
 
 @app.route('/')
 def main_menu():
     return render_template('main_menu.html')
 
-@app.route('/main_menu/recipe_menu') 
-def recipe_menu():
-    return render_template('recipe_menu.html')
-
-# Ingredient Menu CRUD
+# 1. Ingredient Menu CRUD
 @app.route('/main_menu/ingredient_menu')
 def ingredient_menu():
     return render_template('ingredient_menu.html')
@@ -68,6 +65,19 @@ def update_ingredient():
     mycursor.execute("UPDATE ingredients SET ingredient_name = %s WHERE ingredient_id = %s" , (ingredient_name, ingredient_id))
     mydb.commit()
     return redirect(url_for('list_ingredients'))
+
+# 2. Recipe Menu CRUD
+@app.route('/main_menu/recipe_menu') 
+def recipe_menu():
+    return render_template('recipe_menu.html')
+
+
+# 1.1 Show Recipe List
+@app.route('/list_recipes')
+def list_recipes():
+    mycursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
+    result_rec = mycursor.fetchall()
+    return render_template("list_recipes.html", value = result_rec)
 
 
 app.run(host='0.0.0.0',port=8001)
