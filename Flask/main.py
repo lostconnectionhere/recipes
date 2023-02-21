@@ -50,6 +50,9 @@ def delete_ingredient(ingredient_id):
     mydb.commit()
     return redirect(url_for('list_ingredients'))
 
+@app.route('/add_ingredient')
+def add_ing_screen():
+    return render_template('add_ingredient.html')
 
 @app.route('/add_ingredient/do', methods=['POST']) 
 def foo():
@@ -59,24 +62,6 @@ def foo():
         return redirect(url_for('list_ingredients'))
 
 
-# @app.route('/add_ingredient/do', methods = ['POST'])
-# def insert():
-#     if request.method == "POST":
-#         ingredient_name = request.form['ingredient_name']
-#         mycursor.execute("INSERT INTO ingredients (ingredient_name) VALUES (%s)", (ingredient_name,))
-#         mydb.commit()
-#         return redirect(url_for('list_ingredients'))
-
-@app.route('/add_ingredient')
-def add_ing_screen():
-    return render_template('add_ingredient.html')
-
-# @app.route('/add_ingredient/<string:ingredient_name>')
-# def add_ingredient(ingredient_name):
-#     mycursor.execute("INSERT INTO ingredients (ingredient_name) VALUES (?)" % (ingredient_name,))
-#     mydb.commit()
-#     print("insert done")
-#     return redirect(url_for('list_ingredients'))
 
 
 app.run(host='0.0.0.0',port=8001)
