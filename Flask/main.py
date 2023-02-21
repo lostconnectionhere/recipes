@@ -1,6 +1,4 @@
-from flask import Flask, render_template
-import mysql.connector
-
+from flask import Flask, render_template, flash
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -27,8 +25,14 @@ def recipe_menu():
 def ingredient_menu():
     return render_template('ingredient_menu.html')
 
-@app.route('/add_ingredient')
-def add_data():
+@app.route('/update_ingredient')
+def update_ingredient(old_ing_name, ingredient_id):
+    # old_ing_id = input("Which ingredient do you want to update? ")
+    # new_ing_name = input("Sure, to what ingredient do you want to update it to? ")
+
+    mycursor.execute("UPDATE ingredients SET ingredient_name = %s WHERE ingredient_id = %s" % (old_ing_name, ingredient_id))
+    mydb.commit()
+
     return render_template('add_ingredient.html')
 
 @app.route('/list_ingredients')
@@ -36,20 +40,18 @@ def list_ingredients():
     # Probeer de list_ingredients functie te gebruiken die je al had. 
     # laat die result_ing die je nu hier hebt staan return'en. e.g.:
     # result = list_ingredients()
-    # render_template(..., value = result); 
-    print("Here you can see all the ingredients: ")
+    # render_template(..., value = result);  
     mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
     result_ing = mycursor.fetchall()
     # for ingredient in result_ing:
     #     print(ingredient)
     return render_template("list_ingredients.html", value = result_ing)
 
-@app.route('/delete_ingredient')
-def delete_ingredient():
-    del_ingredient = input("What ingredient do you want to delete? ")
-    sql_del_ing = "DELETE FROM ingredients WHERE ingredient_id = " + del_ingredient
-    mycursor.execute(sql_del_ing)
+@app.route('/delete_ingredient/<int:ingredient_id>')
+def delete_ingredient(ingredient_id):
+    mycursor.execute("DELETE FROM ingredients WHERE ingredient_id = %s" % (ingredient_id,))
     mydb.commit()
+    flash("Ingredient deleted successfully!")
         
     delete_ingredient()
 
