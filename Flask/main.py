@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, jsonify, request
 import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -57,17 +57,23 @@ def delete_ingredient(ingredient_id):
     mydb.commit()
     return redirect(url_for('list_ingredients'))
 
-    
-@app.route('/bye')
-def bye_web():
-    # return render_template('bye.html')
 
-    return redirect(url_for('main_menu'))
+@app.route('/add_ingredient')
+def add_ing_screen():
+    return render_template('add_ingredient.html')
+
+@app.route('/add_ingredient', methods=['POST'])
+def add_ingredient():
+    data = request.get_json
+    insert_query = ("INSERT INTO ingredients (ingredient_name) VALUES (?)")
+    value = (data['ingredient_name'])
+    mycursor.execute(insert_query, value)
+    # ingredient_name = request.json
+    mydb.commit()
+    return jsonify({'message': 'Ingredient added successfuly.'})
+    # return redirect(url_for('list_ingredients'))
 
 
-# @app.route('/recipe/<recipe_name>') #test
-# def get_recipe(recipe):
-#     return "The recipe is " +str(recipe)
 
 app.run(host='0.0.0.0',port=8001)
 
