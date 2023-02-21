@@ -71,14 +71,28 @@ def update_ingredient():
 def recipe_menu():
     return render_template('recipe_menu.html')
 
-
-# 1.1 Show Recipe List
+# 2.1 Show Recipe List
 @app.route('/list_recipes')
 def list_recipes():
     mycursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
     result_rec = mycursor.fetchall()
     return render_template("list_recipes.html", value = result_rec)
 
+# 2.2 Add Recipe 
+@app.route('/add_recipe')
+def add_rec_screen():
+    return render_template('add_recipe.html')
+
+@app.route('/add_recipe/add', methods=['POST']) 
+def add_recipes():
+    recipe_name_EN = request.form['recipe_name_EN']
+    recipe_name_KU = request.form['recipe_name_KU']
+    total_time = request.form['total_time']
+    directions = request.form['directions']    
+    author = request.form['author']
+    mycursor.execute("INSERT INTO recipes (recipe_name_EN, recipe_name_KU, total_time, directions, author) VALUES (%s, %s, %s, %s, %s)", (recipe_name_EN, recipe_name_KU, total_time, directions, author))
+    mydb.commit()
+    return redirect(url_for('list_recipes'))
 
 app.run(host='0.0.0.0',port=8001)
 

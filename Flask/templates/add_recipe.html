@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Add Recipe</title>
+   </head>
+   <body>
+      <h3>Add Ingredient</h3>
+        <form action="/add_recipe/add" method="POST">
+            <label for="recipe_name_EN">Recipe Name EN</label>
+            <input type="text" name="recipe_name_EN" id="recipe_name_EN"><br>
+            <label for="recipe_name_KU">Recipe Name KU</label>
+            <input  type="text" name="recipe_name_KU" id="recipe_name_KU"><br>
+            <label for="total_time">Total Time</label>
+            <input type="number" name="total_time" id="total_time"><br>
+            <label for="directions">Directions</label>
+            <input type="text" name="directions" id="directions"><br>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author"><br>
+            <button type="submit"> Add </button>
+        </form>
+   </body>
+</html>   
