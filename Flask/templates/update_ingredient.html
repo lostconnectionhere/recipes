@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Add Profile</title>
+      <title>Add Ingredient</title>
    </head>
    <body>
       <h3>Add Ingredient</h3>
-      <form action="/add_ingredient" method="POST">
-         <label>Ingredient Name</label>
-         <input type="text" name="ingredient_name" placeholder="ingredient menu">
-         <button type="submit">Add</button>
-      </form>
-            <!---confirm that the ingredient has been added-->
+        <form action="/update_ingredient/update" method="POST">
+            <label for="ingredient_id">Ingredient id:</label>
+            <input type="text" name="ingredient_id" id="ingredient_id">
+            <label for="ingredient_name">New Ingredient Name:</label>
+            <input type="text" name="ingredient_name" id="ingredient_name">
+            <button type="submit"> Update </button>
+        </form>
    </body>
 </html>   
