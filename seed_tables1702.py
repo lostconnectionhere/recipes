@@ -90,23 +90,23 @@ print(mycursor.rowcount, "record(s) inserted for table ingredients: ")
 
 # STEP 3. Show tables
 # Step 3.1 Show table recipes
-show_recipes = "SELECT * FROM recipes"
-mycursor.execute(show_recipes)
+# show_recipes = "SELECT * FROM recipes"
+# mycursor.execute(show_recipes)
 
-result_recipes = mycursor.fetchall()
+# result_recipes = mycursor.fetchall()
 
-for recipe in result_recipes: 
-    print(recipe)
+# for recipe in result_recipes: 
+#     print(recipe)
 
-# Step 3.2 Show table ingredients
-show_ingredients = "SELECT * FROM ingredients"
-mycursor.execute(show_ingredients)
+# # Step 3.2 Show table ingredients
+# show_ingredients = "SELECT * FROM ingredients"
+# mycursor.execute(show_ingredients)
 
 
-result_ingredients = mycursor.fetchall()
+# result_ingredients = mycursor.fetchall()
 
-for ingredient in result_ingredients: 
-    print(ingredient)
+# for ingredient in result_ingredients: 
+#     print(ingredient)
 
 # Step 3.3 Show table ingredients
 # show_recipe_ingredients = "SELECT * FROM recipe_ingredients"
