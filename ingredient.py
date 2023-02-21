@@ -40,6 +40,8 @@ def list_ingredients():
     print("\n<<< Your results are")
     mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
     result_ing = mycursor.fetchall()
+    for ingredient in result_ing:
+        print(ingredient)
 
 def get_ingredient(ingredient_id):
     print("Fetching ingredient " + str(ingredient_id)) 
