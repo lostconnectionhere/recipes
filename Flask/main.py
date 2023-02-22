@@ -119,9 +119,11 @@ def update_recipe():
     mydb.commit()
     return redirect(url_for('list_recipes'))
 
-@app.route('/show_complete_recipes')
-def show_recipe_screen():
-    return render_template('show_complete_recipes.html')
+@app.route('/main_menu/list_complete_recipe')
+def list_complete_recipes():
+    # mycursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
+    # result_rec = mycursor.fetchall()
+    return render_template("list_complete_recipe.html")
 
 
 app.run(host='0.0.0.0',port=8001)

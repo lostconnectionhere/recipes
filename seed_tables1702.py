@@ -8,11 +8,48 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-# rec_name_user =  input("From which recipe do you want the id?")
-rec_name_user =  'Kurdish Naan Bread'
-mycursor.execute("SELECT recipe_id FROM recipes WHERE recipe_name_EN = '%s'" % (rec_name_user,))
-result = mycursor.fetchone()
-print(result[0])
+
+def add_ingredient_to_recipe(recipe_name, ingredient_name, measurement_unit, amount):
+    # Step 1: get id from recipe_name
+    mycursor.execute("SELECT recipe_id FROM recipes WHERE recipe_name_EN = '%s'" % (recipe_name,))
+    result = mycursor.fetchone()
+    # print(result[0])
+    recipe_id = result[0]
+
+    # Step 2: get id from ingredient_name
+    mycursor.execute("SELECT ingredient_id FROM ingredients WHERE ingredient_name = '%s'" % (ingredient_name,))
+    result = mycursor.fetchone()
+    # print(result[0])
+    ingredient_id = result[0]
+
+    query = """
+        INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measurement_unit, amount) 
+        VALUES (%s, %s, %s, %s)
+    """
+    params = (recipe_id, ingredient_id, measurement_unit, amount)
+    mycursor.execute(query, params)
+    mydb.commit()
+    print(mycursor.rowcount)
+
+
+add_ingredient_to_recipe("Kurdish Naan Bread", "baking powder", "g", 16)
+add_ingredient_to_recipe("Kurdish Naan Bread", "all purpose flower", "kg", 1)
+add_ingredient_to_recipe("Kurdish Naan Bread", "sugar", "tsp", 1)
+add_ingredient_to_recipe("Kurdish Naan Bread", "salt", "tsp", 1)
+add_ingredient_to_recipe("Kurdish Naan Bread", "egg", "piece(s)", 1)
+add_ingredient_to_recipe("Kurdish Naan Bread", "sunflower oil", "tbsp", 1)
+add_ingredient_to_recipe("Kurdish Naan Bread", "water", "ml", 250)
+
+# add_ingredient_to_recipe("Shifta", "sugar", "ml", 13)
+# add_ingredient_to_recipe("Shifta", "coffee", "ml", 13)
+# add_ingredient_to_recipe("Shifta", "sugar", "ml", 13)
+
+
+# mycursor.executemany(sql_recipe_ingredient, val_recipe_ingredient)
+
+# mydb.commit()
+
+# print(mycursor.rowcount, "record(s) inserted for table recipe_ingredients: ")
 
 
 # STEP 1. Cleanup tables
@@ -74,25 +111,6 @@ print(result[0])
 # mydb.commit()
 
 # print(mycursor.rowcount, "record(s) inserted for table ingredients: ")
-
-# STEP 2.3 Insert recipe_ingredients (seed)
-# sql_recipe_ingredient = "INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measurement_unit, amount) VALUES (%s, %s, %s, %s)"
-# val_recipe_ingredient = [
-#      (11, 66, "g", 16),
-#      (11, 71,"kg", 1),
-#      (11, 67, "tsp", 1),
-#      (11, 72, "tsp", 1),
-#      (11, 68, "piece(s)", 1),
-#      (11, 69, "tbsp", 3),
-#      (11, 70, "ml", 250)
-
-# ]
-
-# mycursor.executemany(sql_recipe_ingredient, val_recipe_ingredient)
-
-# mydb.commit()
-
-# print(mycursor.rowcount, "record(s) inserted for table recipe_ingredients: ")
 
 # STEP 3. Show tables
 # Step 3.1 Show table recipes

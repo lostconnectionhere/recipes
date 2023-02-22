@@ -11,18 +11,18 @@ mycursor = mydb.cursor()
 
 # 1. Show values of tables
 # 1.1 Table recipes, based on ID
-user_input_recipe =  (input("From which ID would like to have the recipe? "))
-# SELECT *  FROM recipes
-mycursor.execute("SELECT * FROM recipes WHERE recipe_id = " + user_input_recipe)
+# user_input_recipe =  (input("From which ID would like to have the recipe? "))
+# # SELECT *  FROM recipes
+# mycursor.execute("SELECT * FROM recipes WHERE recipe_id = " + user_input_recipe)
 
-# sql = "SELECT * FROM recipes"
-# mycursor.execute(sql)
+# # sql = "SELECT * FROM recipes"
+# # mycursor.execute(sql)
 
-result_recipes = mycursor.fetchall()
+# result_recipes = mycursor.fetchall()
 
-print("Table recipes consists of: ")
-for recipe in result_recipes: 
-    print(recipe)
+# print("Table recipes consists of: ")
+# for recipe in result_recipes: 
+#     print(recipe)
 
 # # 1.2 Table ingredients
 # sql_ingredients = "SELECT * FROM ingredients"
@@ -35,27 +35,27 @@ for recipe in result_recipes:
 #     print(ingredient)
 
 # 1.3 Table recipe_ingredients
-# sql_recipe_ingredients = "SELECT * FROM recipe_ingredients"
-# mycursor.execute(sql_recipe_ingredients)
+sql_recipe_ingredients = "SELECT * FROM recipe_ingredients"
+mycursor.execute(sql_recipe_ingredients)
 
-# result_recipe_ingredients = mycursor.fetchall();
+result_recipe_ingredients = mycursor.fetchall();
 
-# print("Table recipe_ingredients consists of: ")
-# for recipe_ingredient in result_recipe_ingredients: 
-#     print(recipe_ingredient)
+print("Table recipe_ingredients consists of: ")
+for recipe_ingredient in result_recipe_ingredients: 
+    print(recipe_ingredient)
 
-# join_query = """SELECT recipes.recipe_name_EN, 
-#             recipes.total_time, 
-#             recipe_ingredients.amount, 
-#             recipe_ingredients.measurement_unit,
-#             ingredients.ingredient_name
-#             FROM recipes 
-#             INNER JOIN recipe_ingredients ON recipes.recipe_id = recipe_ingredients.recipe_id
-#             INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id"""
+join_query = """SELECT recipes.recipe_name_EN, 
+            recipes.total_time, 
+            recipe_ingredients.amount, 
+            recipe_ingredients.measurement_unit,
+            ingredients.ingredient_name
+            FROM recipes 
+            INNER JOIN recipe_ingredients ON recipes.recipe_id = recipe_ingredients.recipe_id
+            INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id"""
 
-# mycursor.execute(join_query)
+mycursor.execute(join_query)
 
-# result_join = mycursor.fetchall()
+result_join = mycursor.fetchall()
 
-# for x in result_join:
-#    print(x)
+for x in result_join:
+   print(x)
