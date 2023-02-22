@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Recipe App</title>
+    </head>
+    <body>
+        <h1>Welcome to the Recipe Book</h1>
+        <div class="random recipes">        
+            <h2>Selection of Recipes:</h2>
+            {% for (id, title) in title_list %} 
+            <h3>Title: {{title}}</h3> <!--get recipe_name_EN from table recipes-->
+            <h4><a href="/list_complete_recipe/{{id}}">Show Recipe</a></h4> <!--get recipe from joining the tables-->
+            {% endfor %}
+        </div>
+    </body>
+</html>
+
+
+<td><a href="/list_complete_recipe/{{row[0]}}">Show</a></td>

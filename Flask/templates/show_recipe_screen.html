@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Recipe</title>
+</head>
+<body>
+    {% for (id, title, ingredient, amount, measurement)) in recipe_list %} 
+    <h1>Recipe of {{title}}</h1>
+    <div class="directions"></div>
+    <div class="image"><img src="url" alt="Image of Recipe"></div>
+    <div class="ingredients">
+        <h2>An unordered HTML list</h2>
+
+            <ul>
+            <li>Ingredient #1: {{ingredient}}</li>
+            <li>Ingredient #2: {{ingredient}}</li>
+            <li>Ingredient #3: {{ingredient}}</li>
+            </ul>  
+    </div>  
+    {% endfor %} 
+</body>
+</html>
+
+
+{
