@@ -8,13 +8,11 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-# recipe_name = input("From which recipe do you want to know the id? Type in the recipe name ")
-# print(type(recipe_name))
-# print(recipe_name)
-# sql = "SELECT recipe_id FROM recipes WHERE recipe_name_EN = " + recipe_name
-id = mycursor.execute("SELECT recipe_id FROM recipes WHERE recipe_name_EN = 'Kurdish Naan Bread'")
-mydb.commit()
-print(id)
+# rec_name_user =  input("From which recipe do you want the id?")
+rec_name_user =  'Kurdish Naan Bread'
+mycursor.execute("SELECT recipe_id FROM recipes WHERE recipe_name_EN = '%s'" % (rec_name_user,))
+result = mycursor.fetchone()
+print(result[0])
 
 
 # STEP 1. Cleanup tables
