@@ -112,7 +112,6 @@ def update_rec_screen():
 
 @app.route('/update_recipe/update', methods=['POST'])
 def update_recipe():
-
     recipe_id = request.form['recipe_id']
     recipe_name_EN = request.form['recipe_name']
     mycursor.execute("UPDATE recipes SET recipe_name_EN = %s WHERE recipe_id = %s" , (recipe_name_EN, recipe_id))
@@ -121,12 +120,30 @@ def update_recipe():
 
 @app.route('/main_menu/list_complete_recipe')
 def list_complete_recipes():
-    # mycursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
-    # result_rec = mycursor.fetchall()
-    return render_template("list_complete_recipe.html")
+    join_query = """SELECT 
+                    recipes.recipe_name_EN, 
+                    recipes.recipe_name_KU,
+                    recipes.total_time, 
+                    ingredients.ingredient_name,
+                    recipe_ingredients.amount, 
+                    recipe_ingredients.measurement_unit,
+                    recipes.directions,
+                    recipes.author
+                    FROM recipe_ingredients 
+                    INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
+                    INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id"""
+    mycursor.execute(join_query)
+    result = mycursor.fetchall()
+    return render_template("list_complete_recipe.html", value = result)
 
 
 app.run(host='0.0.0.0',port=8001)
 
+
+
+# result_join = mycursor.fetchall()
+
+# for x in result_join:
+#    print(x)
 
 # https://pythonbasics.org/flask-tutorial-routes/
