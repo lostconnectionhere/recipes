@@ -138,14 +138,14 @@ def list_complete_recipes():
 @app.route('/list_complete_recipe/<int:recipe_id>')
 def list_per_recipe(recipe_id):
     mycursor.execute("""SELECT 
-                    recipes.recipe_name_EN, 
-                    recipes.recipe_name_KU,
-                    recipes.total_time, 
-                    ingredients.ingredient_name,
-                    recipe_ingredients.amount, 
-                    recipe_ingredients.measurement_unit,
-                    recipes.directions,
-                    recipes.author
+                        recipes.recipe_name_EN, 
+                        recipes.recipe_name_KU,
+                        recipes.total_time, 
+                        ingredients.ingredient_name,
+                        recipe_ingredients.amount, 
+                        recipe_ingredients.measurement_unit,
+                        recipes.directions,
+                        recipes.author
                     FROM recipe_ingredients 
                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
@@ -168,33 +168,41 @@ def home_screen():
 
     return render_template("home.html", title_list=title_list)
 
-@app.route('/show_screen_recipe')
+@app.route('/show_recipe_screen')
 def show_screen():
-    return render_template("show_screen_recipe.html")
-# @app.route('/show_recipe_screen/<int:recipe_id>')
-# def per_recipe(recipe_id):
-#     mycursor.execute("""SELECT 
-#                     recipes.recipe_id,
-#                     recipes.recipe_name_EN, 
-#                     ingredients.ingredient_name,
-#                     recipe_ingredients.amount, 
-#                     recipe_ingredients.measurement_unit,
-#                     recipes.directions,
-#                     FROM recipe_ingredients 
-#                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
-#                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
-#                     WHERE recipe_ingredients.recipe_id = %s """ , (recipe_id,))
-#     result = mycursor.fetchall()
-#     recipe_list = []
-#     for recipe in result:
-#         id = recipe[0] 
-#         title = recipe[1]
-#         ingredient = recipe[2]
-#         amount = recipe[3]
-#         measurement = recipe[4]
-#         tuple = (id, title, ingredient, amount, measurement)
-#         recipe_list.append(tuple)
-#     return render_template("show_recipe_screen.html", recipe_list=recipe_list)
+    return render_template("show_recipe_screen.html")
+
+@app.route('/show_recipe_screen/<int:recipe_id>')
+def per_recipe(recipe_id):
+    mycursor.execute("""SELECT 
+                    recipes.recipe_id,
+                    recipes.recipe_name_EN, 
+                    ingredients.ingredient_name,
+                    recipe_ingredients.amount, 
+                    recipe_ingredients.measurement_unit,
+                    recipes.directions
+                    FROM recipe_ingredients 
+                    INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
+                    INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
+                    WHERE recipe_ingredients.recipe_id = %s """ , (recipe_id,))
+    result = mycursor.fetchall()
+    
+
+    # Welke data hieruit heb je nodig?
+    # en hoe ga je dat eruit halen
+    # en hoe ga je dat opslaan?
+    
+    recipe_name: str = result[0][1]
+    directions: str = result[0][5]
+
+    html_text = ""
+    for ingredient in result:
+        ingredient_name = ingredient[2]
+        ingredient_amount = ingredient[3]
+        measurement_unit = ingredient[4]
+        html_text += "<li> %s %s %s </li>" % (ingredient_amount, measurement_unit, ingredient_name)
+    
+    return render_template("show_recipe_screen.html", recipe_name=recipe_name, directions = directions, ingredients=html_text)
 
 app.run(host='0.0.0.0',port=8001)
 

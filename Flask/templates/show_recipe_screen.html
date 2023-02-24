@@ -4,23 +4,16 @@
     <title>Recipe</title>
 </head>
 <body>
-    <h1>hello</h1>
-    <!-- {% for (id, title, ingredient, amount, measurement)) in recipe_list %} 
-    <h1>Recipe of {{title}}</h1>
-    <div class="directions"></div>
-    <div class="image"><img src="url" alt="Image of Recipe"></div>
+    <h1>Recipe of {{recipe_name}}</h1>  
+    <div class="directions"><h2>Directions: {{directions}}</h2></div>
+
     <div class="ingredients">
         <h2>An unordered HTML list</h2>
 
-            <ul>
-            <li>Ingredient #1: {{ingredient}}</li>
-            <li>Ingredient #2: {{ingredient}}</li>
-            <li>Ingredient #3: {{ingredient}}</li>
-            </ul>  
+        <ul>
+            {{ ingredients | safe }}
+        </ul>
     </div>  
-    {% endfor %}  -->
 </body>
 </html>
 
-
-{
