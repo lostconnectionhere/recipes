@@ -11,21 +11,21 @@
             <tr> 
                 <th>id</th> 
                 <th>Recipe Name EN</th> 
-                <!-- <th>Recipe Name KU</th> 
-                <th>Total Time</th>  -->
+                <th>Recipe Name KU</th> 
+                <th>Total Time</th> 
                 <th>Directions</th> 
-                <!-- <th>Author</th>  -->
+                <th>Author</th> 
             </tr> 
             </thead> 
             <tbody> 
                 {% for row in value %}  
                     <tr> 
-                        <!-- <td>{{row[0]}}</td>  -->
+                        <td>{{row[0]}}</td> 
                         <td>{{row[1]}}</td> 
-                        <!-- <td>{{row[2]}}</td> 
-                        <td>{{row[3]}}</td>  -->
+                        <td>{{row[2]}}</td> 
+                        <td>{{row[3]}}</td> 
                         <td>{{row[4]}}</td>
-                        <!-- <td>{{row[5]}}</td>  -->
+                        <td>{{row[5]}}</td> 
                         <td><a href="/delete_recipe/{{row[0]}}">Delete</a></td>
                         <td><a href="/list_complete_recipe/{{row[0]}}">Show</a></td>
                     </tr> 

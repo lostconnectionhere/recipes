@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="/static/css/home.css" type="text/css"> 
         <meta charset="utf-8">
         <title>Recipe App</title>
     </head>
+
     <body>
         <h1>Welcome to the Recipe Book</h1>
-        <div class="recipes">        
-            <h2>Selection of Recipes:</h2>
-            {% for (id, title) in title_list %} 
-            <h3>Title: {{title}}</h3> <!--get recipe_name_EN from table recipes-->
-            <h4><a href="/show_recipe_screen/{{id}}">Show Recipe</a></h4> <!--get recipe from joining the tables-->
-            {% endfor %}
-        </div>
+        <h2>Selection of Recipes:</h2>
+
+            <div id="container">
+                {% for (id, title) in title_list %} 
+                <div>
+                    <h3>{{title}}</h3> <!--get recipe_name_EN from table recipes-->
+                    <h4><a href="/show_recipe_screen/{{id}}">Show Recipe</a></h4> <!--get recipe from joining the tables-->
+                </div>
+                {% endfor %}
+            </div>
     </body>
 </html>
+
+

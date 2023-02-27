@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/static/css/show_recipe.css" type="text/css"> 
     <title>Recipe</title>
 </head>
 <body>
-    <h1>Recipe of {{recipe_name}}</h1>  
-    <div class="directions"><h2>Directions: {{directions}}</h2></div>
+    <div class="header">
+            <h1>Recipe of {{recipe_name}}</h1>  
+    </div>
+
+    <div class="directions">
+        <h2>Directions:</h2> <br>
+        <h4>{{directions}}</h4>
+    </div>
 
     <div class="ingredients">
-        <h2>An unordered HTML list</h2>
+        <h2>Ingredients list</h2>
 
-        <ul>
-            {{ ingredients | safe }}
+        <ul class="b">
+            <li>{{ ingredients | safe }}</li>
         </ul>
-    </div>  
-    <div class="back">
-        <h4>
-            <a href="/home">Home</a>
-        </h4>
+    </div> 
+
+    <div class="home">
+        <h4><a href="/home">Home</a></h4>
     </div>
 </body>
 </html>

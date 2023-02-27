@@ -187,11 +187,6 @@ def per_recipe(recipe_id):
                     WHERE recipe_ingredients.recipe_id = %s """ , (recipe_id,))
     result = mycursor.fetchall()
     
-
-    # Welke data hieruit heb je nodig?
-    # en hoe ga je dat eruit halen
-    # en hoe ga je dat opslaan?
-    
     recipe_name: str = result[0][1]
     directions: str = result[0][5]
 
