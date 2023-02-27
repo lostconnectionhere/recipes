@@ -1,0 +1,148 @@
+*{ border: 1px solid green;
+}
+
+body { 
+  background-color: black;
+  color: black;
+  padding: 0;
+  margin: 0;
+  font-family: 'Gloock', serif;
+}
+
+.Parent {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.right {
+  width: 50%;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  text-align: left;
+  justify-content: center;
+}
+
+.left {
+  text-align: left;
+  width: 50%;
+  color: white;
+  height: 100vh;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+.ingredients{
+  color:white;
+  background-color: black;
+  list-style-type: circle;
+  
+}
+
+.gallery {
+  margin: auto;
+  display: block;
+  width: 100%;
+
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button5 {border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 10px;
+  background: #383838;
+  border: 3px solid #383838;
+  color: white;
+}
+
+#diet{
+  border: 2px solid white;
+  border-radius: 5px;
+  
+}
+
+.circle {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 10px;
+  background: #383838;
+  border: 3px solid #383838;
+  color: white;
+  text-align: center;
+
+}
+
+.navbar {
+  width: 100%;
+  border-bottom: solid #383838;
+  overflow: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  width: 7%; /* Four links of equal widths */
+  text-align: left;
+}
+
+.navbar a:hover {
+  background-color: #383838;
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+
+  padding: 10px;
+}
+
+.ingredientheader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+li, h3{
+  font-size: 17px;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+
+}
