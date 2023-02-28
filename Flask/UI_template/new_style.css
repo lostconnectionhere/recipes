@@ -50,27 +50,42 @@ li, h3{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     text-align: center;
   }
 
-#left-content {
+#upper-content {
     width: 100%;
     text-align: left;
     color: white;
+    flex-direction: row;
 }
 
-#ingredient-section {
-    width: 100%;
+#upper-left-content{
+    max-width: 50%;
+    display: block;
 }
 
-#right-content {
+#upper-right-content{
+    width: 50%;
+}
+
+#lower-content {
     width: 100%;
     background-color: black;
     color: white;
     text-align: left;
     justify-content: center;
 }
+
+#lower-left-content {
+    width: 50%;
+}
+
+#lower-right-content {
+    width: 50%;
+}
+
+
 
 .button {
     color: white;
@@ -95,16 +110,23 @@ li, h3{
     align-items: center;
   }
   
-img {
-    max-width: 100%;
-    display: block;
-  }
 
-@media (min-width: 500px) {
-    #right-content {
-        width: 49%;
+
+@media (max-width: 400px) {
+    #lower-left-content {
+        width: 100%;
     }
-    #left-content {
-        width: 49%
+    #lower-right-content {
+        width: 100%;
+    }
+    #upper-left-content {
+        width: 100%;
+    }
+    #upper-right-content {
+        width: 100%;
+    }
+
+    img{
+        width: 100%;
     }
   }
