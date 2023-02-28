@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/static/css/show_recipe.css" type="text/css"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/new_style.css" type="text/css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <title>Recipe Page</title>
 </head>
 <body>
-    <div class="header">
-            <h1>Recipe of:  {{recipe_name}}</h1>  
-    </div>
-
-    <div class="directions">
-        <h2>Directions:</h2> <br>
-        <h4>{{directions}}</h4>
-    </div>
-
-    <div class="ingredients">
-        <h2>Ingredients list</h2>
-
-        <ul class="b">
-            <li>{{ ingredients | safe }}</li>
-        </ul>
-    </div> 
-
-    <div class="home">
-        <h4><a href="/home">Home</a></h4>
+    <div id="main">
+        <div id="navbar-maincontent">
+            <div id="navbar-home" class="navbar"><a class="active" href="/home"><i class="fas fa-home">Home</i></a></div>  
+            <div id="maincontent">
+                <div id="upper-content">
+                    <div id="upper-left-content" class="gallery">
+                        <img
+                          src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/09/04/12/babans-naan-2.jpg?quality=75&width=990&auto=webp&crop=2048:1536,smart"
+                          alt="Naan Bread"
+                        /></div>
+                    <div id="titel-details">
+                        <div id="recipe-title">
+                                <h1>{{recipe_name}}</h1>
+                            </div>
+                        <div id="recipe-time-author">          
+                                <h3>Total Time 30m</h3>
+                                <h3>Author</h3>
+                            </div>
+                    </div>
+                </div>
+                <div id="lower-content">
+                    <div id="lower-left-content">
+                        <div id="ingredient-title-section">
+                            <div id="ing-main-title"><h2>Ingredients:</h2></div>
+                            <div>
+                                <button class="button round">-</button> 4
+                                <button class="button round">+</button>
+                            </div>
+                        </div>
+                        <div id="ingredients-list">
+                            <ul class="ingredients">
+                                <li>{{ ingredients | safe }}</li>
+                                <br />
+                              </ul>
+                        </div>
+                    </div>
+                    <div id="lower-right-content">
+                        <h2>Directions:</h2>
+                        <h3>{{directions}}</h3>
+                    </div>
+                </div>
+            </div>  
+        </div>
     </div>
 </body>
 </html>
