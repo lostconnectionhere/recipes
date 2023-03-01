@@ -180,7 +180,9 @@ def per_recipe(recipe_id):
                     ingredients.ingredient_name,
                     recipe_ingredients.amount, 
                     recipe_ingredients.measurement_unit,
-                    recipes.directions
+                    recipes.directions,
+                    recipes.author,
+                    recipes.total_time
                     FROM recipe_ingredients 
                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
@@ -189,15 +191,17 @@ def per_recipe(recipe_id):
     
     recipe_name: str = result[0][1]
     directions: str = result[0][5]
+    author: str = result[0][6]
+    total_time: int = result[0][7]
 
     html_text = ""
-    for ingredient in result:
-        ingredient_name = ingredient[2]
-        ingredient_amount = ingredient[3]
-        measurement_unit = ingredient[4]
+    for item in result:
+        ingredient_name = item[2]
+        ingredient_amount = item[3]
+        measurement_unit = item[4]
         html_text += "<li> %s %s %s </li>" % (ingredient_amount, measurement_unit, ingredient_name)
     
-    return render_template("show_recipe_screen.html", recipe_name=recipe_name, directions = directions, ingredients=html_text)
+    return render_template("show_recipe_screen.html", recipe_name=recipe_name, directions=directions, author=author, total_time=total_time, ingredients=html_text)
 
 app.run(host='0.0.0.0',port=8001)
 
