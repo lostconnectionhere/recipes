@@ -192,7 +192,7 @@ def per_recipe(recipe_id):
     recipe_name: str = result[0][1]
     directions: str = result[0][5]
     author: str = result[0][6]
-    total_time: int = result[0][7]
+    total_time: int = result[0][7] / 60
 
     html_text = ""
     for item in result:
