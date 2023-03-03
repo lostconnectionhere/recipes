@@ -35,13 +35,22 @@ print("Finished dropping table (if existed).")
 cursor.execute("CREATE TABLE recipes (id serial PRIMARY KEY, recipe_name VARCHAR(255))")
 print("Finished creating table.")
 
-# Insert some data into table
-cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Naan')")
-print("Inserted",cursor.rowcount,"row(s) of data.")
-cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Fresh Salad')")
-print("Inserted",cursor.rowcount,"row(s) of data.")
-cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Shifta')")
-print("Inserted",cursor.rowcount,"row(s) of data.")
+# # Insert some data into table
+# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Naan')")
+# print("Inserted",cursor.rowcount,"row(s) of data.")
+# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Fresh Salad')")
+# print("Inserted",cursor.rowcount,"row(s) of data.")
+# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Shifta')")
+# print("Inserted",cursor.rowcount,"row(s) of data.")
+
+# Show values from created table
+cursor.execute("SELECT * FROM recipes")
+result_recipes = cursor.fetchall()
+
+print("Table recipes consists of: ")
+for recipe in result_recipes: 
+    print(recipe)
+
 
 # Cleanup
 conn.commit()

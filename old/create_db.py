@@ -1,16 +1,38 @@
 import mysql.connector
+from dotenv import load_dotenv
+import os
 
-mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "my-secret-pw",
-    database = "mydb_test"
-)
+# Load environment variables from .env file
+load_dotenv()
 
-mycursor = mydb.cursor()
+# Access environment variables
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_name = os.getenv('DB_NAME')
+db_host = os.getenv('DB_HOST')
+ssl_cert = os.path.basename("/Users/rozsabir/Recipe_Management_Application/recipe_app/Flask/DigiCertGlobalRootCA.crt.pem")
 
-#create table recipes
-mycursor.execute("""
+# Obtain connection string information from the portal
+config = {
+  'host': db_host,
+  'user': db_user,
+  'password': db_password,
+  'database': db_name,
+  'port': 3306,
+  'ssl_ca': ssl_cert,
+  'ssl_disabled': "False"
+}
+
+# Construct connection string
+conn = mysql.connector.connect(**config)
+cursor = conn.cursor()
+
+# Drop previous table of same name if one exists
+cursor.execute("DROP TABLE IF EXISTS recipes, ingredients, recipe_ingredients;")
+print("Finished dropping the tables recipes, ingredients and recipe_ingredients.")
+
+# Create table recipes
+cursor.execute("""
     CREATE TABLE IF NOT EXISTS recipes (
         recipe_id INT AUTO_INCREMENT PRIMARY KEY, 
         recipe_name_EN VARCHAR(255) NOT NULL, 
@@ -21,14 +43,14 @@ mycursor.execute("""
     )""")
 
 #create table ingredients
-mycursor.execute("""
+cursor.execute("""
     CREATE TABLE IF NOT EXISTS ingredients (
         ingredient_id INT AUTO_INCREMENT PRIMARY KEY, 
         ingredient_name VARCHAR(255) NOT NULL
     )""")
 
 #create table recipe_ingredients
-mycursor.execute("""
+cursor.execute("""
     CREATE TABLE IF NOT EXISTS recipe_ingredients (
         recipe_id INT, 
         ingredient_id INT,
@@ -38,7 +60,7 @@ mycursor.execute("""
         # FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id), 
         # FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id)
 
-mycursor.execute("SHOW TABLES")
+cursor.execute("SHOW TABLES")
 
-for x in mycursor:
+for x in cursor:
   print(x)
