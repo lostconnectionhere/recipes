@@ -42,14 +42,14 @@ cursor.execute("""
         author VARCHAR(255)
     )""")
 
-#create table ingredients
+# Create table ingredients
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS ingredients (
         ingredient_id INT AUTO_INCREMENT PRIMARY KEY, 
         ingredient_name VARCHAR(255) NOT NULL
     )""")
 
-#create table recipe_ingredients
+# Create table recipe_ingredients
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS recipe_ingredients (
         recipe_id INT, 
