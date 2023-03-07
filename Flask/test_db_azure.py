@@ -28,28 +28,47 @@ conn = mysql.connector.connect(**config)
 cursor = conn.cursor()
 
 # Drop previous table of same name if one exists
-cursor.execute("DROP TABLE IF EXISTS recipes;")
-print("Finished dropping table (if existed).")
+cursor.execute("DROP TABLE IF EXISTS recipes, ingredients, recipe_ingredients;")
+print("Finished dropping the tables recipes, ingredients and recipe_ingredients.")
 
 # Create table
-cursor.execute("CREATE TABLE recipes (id serial PRIMARY KEY, recipe_name VARCHAR(255))")
-print("Finished creating table.")
+# cursor.execute("CREATE TABLE recipes (id serial PRIMARY KEY, recipe_name VARCHAR(255))")
+# print("Finished creating table.")
 
-# # Insert some data into table
-# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Naan')")
-# print("Inserted",cursor.rowcount,"row(s) of data.")
-# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Fresh Salad')")
-# print("Inserted",cursor.rowcount,"row(s) of data.")
-# cursor.execute("INSERT INTO recipes (recipe_name) VALUES ('Shifta')")
-# print("Inserted",cursor.rowcount,"row(s) of data.")
 
-# Show values from created table
-cursor.execute("SELECT * FROM recipes")
-result_recipes = cursor.fetchall()
+# #create table recipes
+# cursor.execute("""
+#     CREATE TABLE IF NOT EXISTS recipes (
+#         recipe_id INT AUTO_INCREMENT PRIMARY KEY, 
+#         recipe_name_EN VARCHAR(255) NOT NULL, 
+#         recipe_name_KU VARCHAR(255), 
+#         total_time INT, 
+#         directions LONGTEXT NOT NULL, 
+#         author VARCHAR(255)
+#     )""")
 
-print("Table recipes consists of: ")
-for recipe in result_recipes: 
-    print(recipe)
+# #create table ingredients
+# cursor.execute("""
+#     CREATE TABLE IF NOT EXISTS ingredients (
+#         ingredient_id INT AUTO_INCREMENT PRIMARY KEY, 
+#         ingredient_name VARCHAR(255) NOT NULL
+#     )""")
+
+# #create table recipe_ingredients
+# cursor.execute("""
+#     CREATE TABLE IF NOT EXISTS recipe_ingredients (
+#         recipe_id INT, 
+#         ingredient_id INT,
+#         measurement_unit ENUM('g', 'kg', 'tsp', 'tbsp', 'ml', 'l', 'cup', 'piece(s)') NOT NULL,
+#         amount INT NOT NULL)""")
+
+#         # FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id), 
+#         # FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id)
+
+# cursor.execute("SHOW TABLES")
+
+# for x in cursor:
+#   print(x)
 
 
 # Cleanup
