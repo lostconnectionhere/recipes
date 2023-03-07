@@ -1,14 +1,33 @@
 from flask import Flask, render_template, redirect, url_for, jsonify, request
 import mysql.connector
+import mysql.connector
+from dotenv import load_dotenv
+import os
 
-mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "my-secret-pw",
-    database = "mydb_test"
-)
+# Load environment variables from .env file
+load_dotenv()
 
-mycursor = mydb.cursor()
+# Access environment variables
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_name = os.getenv('DB_NAME')
+db_host = os.getenv('DB_HOST')
+ssl_cert = os.path.basename("/Users/rozsabir/Recipe_Management_Application/recipe_app/Flask/DigiCertGlobalRootCA.crt.pem")
+
+# Obtain connection string information from the portal
+config = {
+  'host': db_host,
+  'user': db_user,
+  'password': db_password,
+  'database': db_name,
+  'port': 3306,
+  'ssl_ca': ssl_cert,
+  'ssl_disabled': "False"
+}
+
+# Construct connection string
+conn = mysql.connector.connect(**config)
+cursor = conn.cursor()
 
 # creates application object
 app = Flask(__name__)
@@ -25,8 +44,8 @@ def ingredient_menu():
 # 1.1 Show Ingredients List
 @app.route('/list_ingredients')
 def list_ingredients():
-    mycursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
-    result_ing = mycursor.fetchall()
+    cursor.execute("SELECT ingredient_id, ingredient_name FROM ingredients")
+    result_ing = cursor.fetchall()
     return render_template("list_ingredients.html", value = result_ing)
 
 # 1.2 Add Ingredient 
@@ -37,8 +56,8 @@ def add_ing_screen():
 @app.route('/add_ingredient/add', methods=['POST']) 
 def add_ingredient():
     ingredient_name = request.form['ingredient_name']
-    mycursor.execute("INSERT INTO ingredients (ingredient_name) VALUES (%s)", (ingredient_name,))
-    mydb.commit()
+    cursor.execute("INSERT INTO ingredients (ingredient_name) VALUES (%s)", (ingredient_name,))
+    conn.commit()
     return redirect(url_for('list_ingredients'))
 
 # 1.3 Delete Ingredient
@@ -48,8 +67,8 @@ def delete_ing_screen():
 
 @app.route('/delete_ingredient/<int:ingredient_id>')
 def delete_ingredient(ingredient_id):
-    mycursor.execute("DELETE FROM ingredients WHERE ingredient_id = %s" , (ingredient_id,))
-    mydb.commit()
+    cursor.execute("DELETE FROM ingredients WHERE ingredient_id = %s" , (ingredient_id,))
+    conn.commit()
     return redirect(url_for('list_ingredients'))
 
 # 1.4 Update Ingredient
@@ -62,8 +81,8 @@ def update_ingredient():
 
     ingredient_id = request.form['ingredient_id']
     ingredient_name = request.form['ingredient_name']
-    mycursor.execute("UPDATE ingredients SET ingredient_name = %s WHERE ingredient_id = %s" , (ingredient_name, ingredient_id))
-    mydb.commit()
+    cursor.execute("UPDATE ingredients SET ingredient_name = %s WHERE ingredient_id = %s" , (ingredient_name, ingredient_id))
+    conn.commit()
     return redirect(url_for('list_ingredients'))
 
 # 2. Recipe Menu CRUD
@@ -74,8 +93,8 @@ def recipe_menu():
 # 2.1 Show Recipe List
 @app.route('/list_recipes')
 def list_recipes():
-    mycursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
-    result_rec = mycursor.fetchall()
+    cursor.execute("SELECT recipe_id, recipe_name_EN, recipe_name_KU, total_time, directions, author FROM recipes")
+    result_rec = cursor.fetchall()
     return render_template("list_recipes.html", value = result_rec)
 
 # 2.2 Add Recipe 
@@ -90,8 +109,8 @@ def add_recipes():
     total_time = request.form['total_time']
     directions = request.form['directions']    
     author = request.form['author']
-    mycursor.execute("INSERT INTO recipes (recipe_name_EN, recipe_name_KU, total_time, directions, author) VALUES (%s, %s, %s, %s, %s)", (recipe_name_EN, recipe_name_KU, total_time, directions, author))
-    mydb.commit()
+    cursor.execute("INSERT INTO recipes (recipe_name_EN, recipe_name_KU, total_time, directions, author) VALUES (%s, %s, %s, %s, %s)", (recipe_name_EN, recipe_name_KU, total_time, directions, author))
+    conn.commit()
     return redirect(url_for('list_recipes'))
 
 # 2.3 Delete Recipe
@@ -101,8 +120,8 @@ def delete_rec_screen():
 
 @app.route('/delete_recipe/<int:recipe_id>')
 def delete_recipe(recipe_id):
-    mycursor.execute("DELETE FROM recipes WHERE recipe_id = %s" , (recipe_id,))
-    mydb.commit()
+    cursor.execute("DELETE FROM recipes WHERE recipe_id = %s" , (recipe_id,))
+    conn.commit()
     return redirect(url_for('list_recipes'))
 
 # 2.4 Update Recipe
@@ -114,13 +133,13 @@ def update_rec_screen():
 def update_recipe():
     recipe_id = request.form['recipe_id']
     recipe_name_EN = request.form['recipe_name']
-    mycursor.execute("UPDATE recipes SET recipe_name_EN = %s WHERE recipe_id = %s" , (recipe_name_EN, recipe_id))
-    mydb.commit()
+    cursor.execute("UPDATE recipes SET recipe_name_EN = %s WHERE recipe_id = %s" , (recipe_name_EN, recipe_id))
+    conn.commit()
     return redirect(url_for('list_recipes'))
 
 @app.route('/main_menu/list_complete_recipe')
 def list_complete_recipes():
-    mycursor.execute("""SELECT 
+    cursor.execute("""SELECT 
                     recipes.recipe_name_EN, 
                     recipes.recipe_name_KU,
                     recipes.total_time, 
@@ -132,12 +151,12 @@ def list_complete_recipes():
                     FROM recipe_ingredients 
                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id""")
-    result = mycursor.fetchall()
+    result = cursor.fetchall()
     return render_template("list_complete_recipe.html", value = result)
 
 @app.route('/list_complete_recipe/<int:recipe_id>')
 def list_per_recipe(recipe_id):
-    mycursor.execute("""SELECT 
+    cursor.execute("""SELECT 
                         recipes.recipe_name_EN, 
                         recipes.recipe_name_KU,
                         recipes.total_time, 
@@ -150,14 +169,14 @@ def list_per_recipe(recipe_id):
                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
                     WHERE recipe_ingredients.recipe_id = %s """ , (recipe_id,))
-    result = mycursor.fetchall()
+    result = cursor.fetchall()
     return render_template("list_complete_recipe.html", value = result)
 
 @app.route('/home')
 def home_screen():
     # return("hi")
-    mycursor.execute("SELECT recipe_id, recipe_name_EN FROM recipes")
-    result_rec = mycursor.fetchall()
+    cursor.execute("SELECT recipe_id, recipe_name_EN FROM recipes")
+    result_rec = cursor.fetchall()
     
     title_list = []
     for recipe in result_rec:
@@ -174,7 +193,7 @@ def show_screen():
 
 @app.route('/show_recipe_screen/<int:recipe_id>')
 def per_recipe(recipe_id):
-    mycursor.execute("""SELECT 
+    cursor.execute("""SELECT 
                     recipes.recipe_id,
                     recipes.recipe_name_EN, 
                     ingredients.ingredient_name,
@@ -187,7 +206,7 @@ def per_recipe(recipe_id):
                     INNER JOIN recipes ON recipe_ingredients.recipe_id = recipes.recipe_id 
                     INNER JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id
                     WHERE recipe_ingredients.recipe_id = %s """ , (recipe_id,))
-    result = mycursor.fetchall()
+    result = cursor.fetchall()
     
     recipe_name: str = result[0][1]
     directions: str = result[0][5]
