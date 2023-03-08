@@ -12,7 +12,7 @@ db_user = os.getenv('DB_USER')
 db_password = os.getenv('DB_PASSWORD')
 db_name = os.getenv('DB_NAME')
 db_host = os.getenv('DB_HOST')
-ssl_cert = os.path.basename("/Users/rozsabir/Recipe_Management_Application/recipe_app/Flask/DigiCertGlobalRootCA.crt.pem")
+ssl_cert = os.path.basename("/Users/rozsabir/Recipe_Management_Application/recipe_app/DigiCertGlobalRootCA.crt.pem") 
 
 # Obtain connection string information from the portal
 config = {
